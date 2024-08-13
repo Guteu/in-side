@@ -1,13 +1,17 @@
-function handleImageToBase64(image) {
-    return new Promise(res => {
-        let reader = new FileReader()
+/**
+ * @param {File} file 
+ */
+async function convertImageToBase64(file) {
+    if(file?.constructor !== File) throw "file não é um File!"
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        
+        reader.onload = () => {
+            resolve(reader.result);
+        };
 
-        reader.readAsDataURL(image)
-
-        reader.onload = function() {
-            res(reader.result.replace("data:", "").replace(/^.+,/, ""));
-        }
-    })
+        reader.readAsDataURL(file);
+    });
 }
 
-export default handleImageToBase64
+export default convertImageToBase64

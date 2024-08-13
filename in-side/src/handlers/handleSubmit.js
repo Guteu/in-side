@@ -2,7 +2,7 @@ import db from "../firebaseSetup";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 
 
-async function handleSubmit(name, data, location, text, image) {
+async function handleSubmit(data) {
     const docRef = doc(db, "Posts", "Posts")
     const docSnap = await getDoc(docRef)
     if (docSnap.exists()){
@@ -10,14 +10,14 @@ async function handleSubmit(name, data, location, text, image) {
         const postId = docData.postsCount
         const updatedData = {
             ...docData,
-            [postId]: {name: name, data: data, location: location, text: text, image:image},
+            [postId]: data,
             postsCount: postId + 1
         }
 
         await setDoc(docRef, updatedData)
     }else{
         const newDocData = {
-            0: {name: name, data: data, location: location, text: text, image:image},
+            0: data,
             postsCount: 1
         }
         await setDoc(docRef, newDocData)
