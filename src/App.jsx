@@ -5,7 +5,6 @@ import plusSign from './assets/plus-sign.png'
 import minusSign from './assets/minus-sign.png'
 import convertImageToBase64 from "./handlers/imageConvert.js"
 import handleSubmit from "./handlers/handleSubmit.js"
-import users from "./usuarios.json"
 let page = 0
 
 
@@ -14,6 +13,7 @@ function App() {
     const [addButton, setAddButton] = useState(plusSign)
     const [message, setMessage] = useState({})
     const [login, setLogin] = useState({user: "", senha: ""})
+
     const [postsArray, setPostsArray] = useState([])
     const inputRef = useRef()
 
@@ -34,7 +34,6 @@ function App() {
         const posts = await handleMessages()
         if(typeof(posts) === "undefined") return;
         let postsToRender = page * 5
-        console.log(postsToRender, page)
         for (let i = posts.postsCount - 1; i >= 0; i--) {
             const post = posts[i]
             postsArr.push(<Post title={post.name} image={post.image} date={post.date} text={post.text} location={post.location} key={postsArr.length + 1}/>)
@@ -56,8 +55,6 @@ function App() {
 
     const formSubmit = async(ev) => {
         ev.preventDefault();
-        if(!users[login.user]) return alert("Login ou senha incorreto!");
-        if(users[login.user] !== login.senha) return alert("Login ou sehnha incorreto!");
         if(!message.name) return alert("Você precisa inserir um nome!");
         if(!message.text) return alert("Você precisa inserir um texto!");
 
@@ -66,7 +63,7 @@ function App() {
         }
         const now = new Date(Date.now()).toLocaleDateString("pt-br")
         const base64Image = inputRef.current.files.length !== 0 ? await convertImageToBase64(inputRef.current.files[0]) : ""
-        await handleSubmit({...message, image: base64Image, date: now, name: message.name + ` (${login.user})`})
+        await handleSubmit({...message, image: base64Image, date: now, name: message.name + ` (${login.user})`}, login.user, login.senha)
         setMessage({})  
         location.reload()
     }

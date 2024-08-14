@@ -1,10 +1,13 @@
 import db from "../firebaseSetup";
 import { setDoc, doc, getDoc } from "firebase/firestore";
+import handleLogin from "./handleLogin";
 
-
-async function handleSubmit(data) {
+async function handleSubmit(data, user, password) {
     const docRef = doc(db, "Posts", "Posts")
     const docSnap = await getDoc(docRef)
+    if(await handleLogin(user, password) == false){
+        return alert("Login ou senha incorreto!")
+    }
     if (docSnap.exists()){
         const docData = docSnap.data()
         const postId = docData.postsCount
