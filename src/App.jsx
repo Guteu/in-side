@@ -6,7 +6,7 @@ import minusSign from './assets/minus-sign.png'
 import convertImageToBase64 from "./handlers/imageConvert.js"
 import handleSubmit from "./handlers/handleSubmit.js"
 import users from "./usuarios.json"
-let page = -1
+let page = 0
 
 
 function App() {
