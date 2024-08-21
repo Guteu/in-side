@@ -72,7 +72,9 @@ function App() {
     return (
         <>
             <header>
-                <h1 className="center">InSide.</h1>
+                <a href="https://www.instagram.com/in.tolerancia/" target="_blank">
+                    <h1 className="center">InSide.</h1>
+                </a>
             </header>
             <main>
                 <div className='add-box'>

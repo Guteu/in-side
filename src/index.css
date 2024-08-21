@@ -35,7 +35,13 @@ header {
 header h1 {
 	color: white;
 	font-size: 4em;
+	user-select: none;
 }
+
+header h1 a:link { text-decoration: none; }
+header h1 a:visited { text-decoration: none; }
+header h1 a:hover { text-decoration: none; }
+header h1 a:active { text-decoration: none; }
 
 main {
 	max-width: 900px;
