@@ -6,7 +6,8 @@ async function handleSubmit(data, user, password) {
     const docRef = doc(db, "Posts", "Posts")
     const docSnap = await getDoc(docRef)
     if(await handleLogin(user, password) == false){
-        return alert("Login ou senha incorreto!")
+        alert("Login ou senha incorreto!")
+        return false
     }
     if (docSnap.exists()){
         const docData = docSnap.data()
@@ -25,6 +26,7 @@ async function handleSubmit(data, user, password) {
         }
         await setDoc(docRef, newDocData)
     }
+    return true
 }
 
 export default handleSubmit
