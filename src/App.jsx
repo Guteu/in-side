@@ -63,7 +63,8 @@ function App() {
         }
         const now = new Date(Date.now()).toLocaleDateString("pt-br")
         const base64Image = inputRef.current.files.length !== 0 ? await convertImageToBase64(inputRef.current.files[0]) : ""
-        await handleSubmit({...message, image: base64Image, date: now, name: message.name + ` (${login.user})`}, login.user, login.senha)
+        const success = await handleSubmit({...message, image: base64Image, date: now, name: message.name + ` (${login.user})`}, login.user, login.senha)
+        if(!success) return
         setMessage({})  
         location.reload()
     }
